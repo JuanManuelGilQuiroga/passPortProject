@@ -9,7 +9,7 @@ const indexRoutes = require('./routes/index.cjs');
 const app = express();
 
 // Configuración de la base de datos
-//db();
+db();
 
 // Configuración de Passport
 passportConfig(passport);

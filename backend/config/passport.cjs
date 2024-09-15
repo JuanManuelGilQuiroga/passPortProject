@@ -4,6 +4,9 @@ const DiscordStrategy = require('passport-discord').Strategy;
 const User = require('../models/User');
 
 module.exports = function(passport) {
+
+    //Google
+
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -21,6 +24,8 @@ module.exports = function(passport) {
         }).save();
         done(null, newUser);
     }));
+
+    //Facebook
 
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -41,9 +46,11 @@ module.exports = function(passport) {
         done(null, newUser);
     }));
 
+    //Discord
+
     passport.use(new DiscordStrategy({
-        clientID: 'TU_CLIENT_ID_DISCORD',
-        clientSecret: 'TU_CLIENT_SECRET_DISCORD',
+        clientID: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
         callbackURL: '/auth/discord/callback',
         scope: ['identify', 'email']
     }, async (accessToken, refreshToken, profile, done) => {
