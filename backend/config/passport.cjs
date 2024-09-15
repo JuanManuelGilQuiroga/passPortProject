@@ -4,7 +4,7 @@ const DiscordStrategy = require('passport-discord').Strategy;
 const User = require('../models/User');
 
 module.exports = function(passport) {
-    passport.use(new FacebookStrategyv({
+    passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL: "/auth/facebook/callback",
