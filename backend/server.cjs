@@ -2,14 +2,14 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const db = require('./utils/db');
-const passportConfig = require('./config/passport');
-const authRoutes = require('./routes/auth');
+const passportConfig = require('./config/passport.cjs');
+const authRoutes = require('./routes/auth.cjs');
 const indexRoutes = require('./routes/index.cjs');
 
 const app = express();
 
 // Configuración de la base de datos
-db();
+//db();
 
 // Configuración de Passport
 passportConfig(passport);
