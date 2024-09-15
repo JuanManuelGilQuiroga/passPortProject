@@ -1,4 +1,4 @@
-export function ButtonLogIn({name, color}){
+export function ButtonLogIn({name, color, logIn}){
     const divStyle = {
         backgroundColor: color,
         width: '100px',
@@ -11,7 +11,7 @@ export function ButtonLogIn({name, color}){
 
     return (
         <>
-            <div style={divStyle}>
+            <div style={divStyle} onClick={logIn}>
                 <span>{name}</span>
             </div>
         </>
