@@ -13,8 +13,9 @@ router.get('/facebook/callback', passport.authenticate('facebook', { failureRedi
     res.redirect('/profile');
 });
 
-router.get('/discord', passport.authenticate('discord'));
+router.get('/discord', passport.authenticate('discord', { scope: ['identify', 'email']} ));
 router.get('/discord/callback', passport.authenticate('discord', { failureRedirect: '/' }), (req, res) => {
+    console.log(req.session)
     res.redirect('/profile');
 });
 
