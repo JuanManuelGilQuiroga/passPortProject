@@ -24,7 +24,6 @@ const DiscordUserSchema = new mongoose.Schema({
     picture: String
 }, { collection: 'discordusers' });
 
-// Modelo (asegúrate de que usas la misma conexión que estableciste antes)
 const GoogleUser = mongoose.model('GoogleUser', GoogleUserSchema);
 const FacebookUser = mongoose.model('FacebookUser', FacebookUserSchema);
 const DiscordUser = mongoose.model('DiscordUser', DiscordUserSchema);
