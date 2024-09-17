@@ -1,4 +1,4 @@
-import '../App.css';
+import '../Login.css';
 
 export function LogIn(){
     return (
@@ -43,10 +43,11 @@ export function LogIn(){
               </button>
               <div className="separator">
                 <div />
-                <span>OR</span>
+                <span>O</span>
                 <div />
               </div>
               <input type="email" placeholder="Email" name="email" />
+              <input type="password" placeholder="Contraseña" name="password" />
               <button className="oauthButton">
                 Continúa
                 <svg
@@ -65,6 +66,7 @@ export function LogIn(){
                   <path d="m13 17 5-5-5-5" />
                 </svg>
               </button>
+              <span>No tienes cuenta?, <a href="/register">Registrate</a></span>
           </div>
         </main>
     )

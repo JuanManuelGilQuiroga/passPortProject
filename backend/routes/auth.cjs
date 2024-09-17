@@ -31,7 +31,7 @@ router.get('/logout', (req, res) => {
                 console.error("Error al destruir la sesión:", err);
                 return res.status(500).send("Error al destruir la sesión.");
             }
-            res.clearCookie('connect.sid'); // Asegúrate de limpiar la cookie también
+            res.clearCookie('connect.sid'); // Limpiar la cookie
             console.log(req.session);
             console.log("sesion destruida")
             res.redirect('http://localhost:5173/login');
