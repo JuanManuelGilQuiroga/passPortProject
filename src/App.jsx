@@ -3,7 +3,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import './Login.css';
 import {LogIn} from './components/logIn';
 import { Profile } from './components/profile';
-import { Register } from './components/register';
+import { Register, registerAction } from './components/register';
 
 const routes = createBrowserRouter([
   {
@@ -17,6 +17,7 @@ const routes = createBrowserRouter([
   {
     path: "/register",
     element: <Register/>,
+    action: registerAction
   },
   {
     path: "/profile",
