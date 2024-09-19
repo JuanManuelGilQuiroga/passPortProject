@@ -5,6 +5,7 @@ const db = require('./utils/db');
 const passportConfig = require('./config/passport.cjs');
 const authRoutes = require('./routes/auth.cjs');
 const indexRoutes = require('./routes/index.cjs');
+const cors = require('cors');
 
 const app = express();
 
@@ -14,6 +15,7 @@ db();
 // Configuración de Passport
 passportConfig(passport);
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
