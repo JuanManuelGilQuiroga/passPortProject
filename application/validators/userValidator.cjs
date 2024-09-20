@@ -8,7 +8,7 @@ module.exports = class UserValidator {
             body('password').notEmpty().isString().withMessage('Envia la contraseña'),
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {
-                    throw new Error(`Don't send anything in the url`);
+                    throw new Error(`No mandar nada en la url`);
                 }
                 return true;
             })
@@ -21,7 +21,7 @@ module.exports = class UserValidator {
             body('password').notEmpty().isString().withMessage('Envia la contraseña'),
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {
-                    throw new Error(`Don't send anything in the url`);
+                    throw new Error(`No mandar nada en la url`);
                 }
                 return true;
             })

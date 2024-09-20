@@ -36,6 +36,7 @@ const insertUser = async (arg) => {
     let res = await new user(arg).save();
     return res
 }
+console.log("hola")
 
 const findOneUserByNameEmailOrOauthId = async (arg) => {
     let res = await user.findOne({

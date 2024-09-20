@@ -1,18 +1,16 @@
 const {validationResult} = require('express-validator');
-const UserRepository = require('../../domain/repositories/userRepository.cjs');
+const ProductRepository = require('../../domain/repositories/productRepository.cjs');
 
-module.exports = class UserController {
-    constructor() {
-        this.userRepository = new UserRepository();
+module.exports = class ProductController {
+    constructor(){
+        this.productRepository = new ProductRepository();
     }
-    
-    async crearUsuario(req, res)  {
-        console.log(this.userRepository)
+
+    async crearProducto (req,res) {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-            const userExist = await this.userRepository.getOneUserByNameEmailOrOauthId(req.body);
-            const newUser = await this.userRepository.save(req.body);
+            const newProduct = await this.productRepository.save(req.body);
             return res.status(201).json(user);
         } catch (error) {
             const errorObj = JSON.parse(error.message);
@@ -20,10 +18,10 @@ module.exports = class UserController {
         }
     }
 
-    async logUsuario (req,res) {
+    async listarProductos (req,res) {
         try {
-            const user = await this.userRepository.logIn(req.body);
-            return res.status(201).json({ message: 'Usuario loggeado' });
+            const product = await this.productRepository.getAllProducts();
+            return res.status(201).json({ data: product });
         } catch (error) {
             const errorObj = JSON.parse(error.message);
             res.status(errorObj.status).json({ message: errorObj.message });
