@@ -11,7 +11,7 @@ module.exports = class UserRepository {
 
     async save(arg) {
         try {
-            console.log("hola")
+            console.log("usuario guardado")
             return await insertUser(arg);
         } catch (error) {
             throw new Error(JSON.stringify({status: 500, message: 'Usuario no guardado.'}));

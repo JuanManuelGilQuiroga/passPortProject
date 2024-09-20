@@ -7,13 +7,13 @@ module.exports = class UserController {
     }
     
     async crearUsuario(req, res)  {
-        console.log(this.userRepository)
+        // console.log(this.userRepository)
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
             const userExist = await this.userRepository.getOneUserByNameEmailOrOauthId(req.body);
             const newUser = await this.userRepository.save(req.body);
-            return res.status(201).json(user);
+            return res.status(201).json(newUser);
         } catch (error) {
             const errorObj = JSON.parse(error.message);
             res.status(errorObj.status).json({ message: errorObj.message });

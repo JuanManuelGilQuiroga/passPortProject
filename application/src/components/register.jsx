@@ -26,7 +26,7 @@ export function Register(){
                 <input type="text" placeholder="Nick" name="nick" required/>
                 <input type="email" placeholder="Email" name="email" required/>
                 <input type="new-password" placeholder="Contraseña" name="password" required/>
-                <input type="new-password" placeholder="Confirma tu Contraseña" name="password" required/>
+                {/* <input type="new-password" placeholder="Confirma tu Contraseña" name="password" required/> */}
                 <div className="separator"><div/></div>
                 <input type="submit" className="oauthButton" placeholder="Continua"/>
               </Form>

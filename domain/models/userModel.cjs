@@ -30,13 +30,13 @@ const standardUser = new mongoose.Schema({
 const GoogleUser = mongoose.model('GoogleUser', GoogleUserSchema);
 const FacebookUser = mongoose.model('FacebookUser', FacebookUserSchema);
 const DiscordUser = mongoose.model('DiscordUser', DiscordUserSchema);
+
 const user = mongoose.model('user', standardUser);
 
 const insertUser = async (arg) => {
     let res = await new user(arg).save();
     return res
 }
-console.log("hola")
 
 const findOneUserByNameEmailOrOauthId = async (arg) => {
     let res = await user.findOne({

@@ -3,7 +3,6 @@ const passport = require('passport');
 const UserController = require('../controllers/userController.cjs');
 const UserValidator = require('../validators/userValidator.cjs');
 
-
 const router = express.Router();
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -25,7 +24,7 @@ router.get('/discord/callback', passport.authenticate('discord', { failureRedire
 const userValidator = new UserValidator()
 const userController = new UserController()
 
-router.post('/user', userValidator.validateUserData(), userController.crearUsuario)
+router.post('/user', userValidator.validateUserData(), (req, res) => userController.crearUsuario(req, res));
 
 router.get('/logout', (req, res) => {
     req.logout((err) => {
