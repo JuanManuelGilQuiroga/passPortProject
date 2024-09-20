@@ -103,7 +103,7 @@ main {
     width: 100%;
 }
 
-Form {
+.formregister {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -111,7 +111,7 @@ Form {
     gap: 20px;
 }
 
-Form > input {
+.formregister > input {
     width: 250px;
     height: 40px;
     border-radius: 5px;

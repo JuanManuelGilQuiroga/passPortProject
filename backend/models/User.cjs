@@ -60,6 +60,12 @@ const crearUsuario = async (req, res) => {
     return res.status(201).json({ message: 'Usuario registrado' });
 }
 
+const logUsuario = async (req,res) => {
+    const userExists = await findOneUserByNameEmailOrOauthId(req.body);
+    if (userExists) {
+        return res.status(201).json({ message: 'Usuario loggeado' });
+    }
+}
 
 // Exportar modelos
 module.exports = {
@@ -67,5 +73,6 @@ module.exports = {
     FacebookUser,
     DiscordUser,
     user,
-    crearUsuario
+    crearUsuario,
+    logUsuario
 };

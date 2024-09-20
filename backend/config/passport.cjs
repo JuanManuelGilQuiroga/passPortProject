@@ -1,7 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const DiscordStrategy = require('passport-discord').Strategy;
-const { GoogleUser, FacebookUser, DiscordUser } = require("../models/User")
+const { GoogleUser, FacebookUser, DiscordUser } = require("../models/User.cjs")
 
 module.exports = function(passport) {
 

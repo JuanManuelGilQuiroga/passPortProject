@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Link } from "react-router-dom";
+import { Form } from "react-router-dom";
 import "../register.css";
 
 export const registerAction = async({request}) => {
@@ -22,17 +22,15 @@ export function Register(){
         <main>
             <div className="form">
               <p>Registrate para continuar,<span>Completa el formulario</span></p>
-              <Form action="/register" method="POST">
+              <Form className="formregister" action="/register" method="POST">
                 <input type="text" placeholder="Nick" name="nick" required/>
                 <input type="email" placeholder="Email" name="email" required/>
-                <input type="password" placeholder="Contraseña" name="password" required/>
-                <input type="password" placeholder="Confirma tu Contraseña" name="password" required/>
+                <input type="new-password" placeholder="Contraseña" name="password" required/>
+                <input type="new-password" placeholder="Confirma tu Contraseña" name="password" required/>
                 <div className="separator"><div/></div>
                 <input type="submit" className="oauthButton" placeholder="Continua"/>
               </Form>
-              <span>Ya tienes cuenta?, <Link to="/login">Logeate</Link></span>
           </div>
         </main>
     )
 }
-
