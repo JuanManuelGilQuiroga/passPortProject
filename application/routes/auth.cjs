@@ -1,6 +1,8 @@
 const express = require('express');
 const passport = require('passport');
-const {crearUsuario} = require('../models/User.cjs')
+const UserController = require('../controllers/userController.cjs');
+const UserValidator = require('../validators/userValidator.cjs');
+
 
 const router = express.Router();
 
@@ -20,7 +22,10 @@ router.get('/discord/callback', passport.authenticate('discord', { failureRedire
     res.redirect('http://localhost:5173/profile');
 });
 
-router.post('/user', crearUsuario)
+const userValidator = new UserValidator()
+const userController = new UserController()
+
+router.post('/user', userValidator.validateUserData(), userController.crearUsuario)
 
 router.get('/logout', (req, res) => {
     req.logout((err) => {

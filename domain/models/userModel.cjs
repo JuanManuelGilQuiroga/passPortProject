@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Esquema para Google
 const GoogleUserSchema = new mongoose.Schema({
     oauthID: String,
     name: String,
@@ -8,7 +7,6 @@ const GoogleUserSchema = new mongoose.Schema({
     picture: String
 }, { collection: 'googleusers' });
 
-// Esquema para Facebook
 const FacebookUserSchema = new mongoose.Schema({
     oauthID: String,
     name: String,
@@ -16,7 +14,6 @@ const FacebookUserSchema = new mongoose.Schema({
     picture: String
 }, { collection: 'facebookusers' });
 
-// Esquema para Discord
 const DiscordUserSchema = new mongoose.Schema({
     oauthID: String,
     name: String,
@@ -51,28 +48,22 @@ const findOneUserByNameEmailOrOauthId = async (arg) => {
     return res
 }
 
-const crearUsuario = async (req, res) => {
-    const userExists = await findOneUserByNameEmailOrOauthId(req.body);
-    if (userExists) {
-        return res.status(200).json({ message: 'El usuario ya está registrado' });
-    }
-    const newUser = await insertUser(req.body);
-    return res.status(201).json({ message: 'Usuario registrado' });
+const findOneUserByNameAndPassword = async (arg) => {
+    let res = await user.findOne({
+        $and: [
+            { nick: arg.nick },
+            { password: arg.password }
+        ]
+    });
+    return res
 }
 
-const logUsuario = async (req,res) => {
-    const userExists = await findOneUserByNameEmailOrOauthId(req.body);
-    if (userExists) {
-        return res.status(201).json({ message: 'Usuario loggeado' });
-    }
-}
-
-// Exportar modelos
 module.exports = {
     GoogleUser,
     FacebookUser,
     DiscordUser,
     user,
-    crearUsuario,
-    logUsuario
+    insertUser,
+    findOneUserByNameEmailOrOauthId,
+    findOneUserByNameAndPassword
 };

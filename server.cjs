@@ -1,10 +1,10 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const db = require('./utils/db');
-const passportConfig = require('./config/passport.cjs');
-const authRoutes = require('./routes/auth.cjs');
-const indexRoutes = require('./routes/index.cjs');
+const db = require('./infraestructure/database/db.cjs');
+const passportConfig = require('./application/middlewares/passport.cjs');
+const authRoutes = require('./application/routes/auth.cjs');
+const indexRoutes = require('./application/routes/index.cjs');
 const cors = require('cors');
 
 const app = express();
