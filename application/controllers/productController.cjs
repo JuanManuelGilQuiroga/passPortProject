@@ -6,15 +6,21 @@ module.exports = class ProductController {
         this.productRepository = new ProductRepository();
     }
 
-    async crearProducto (req,res) {
+    async crearProducto (data) {
         try {
-            const errors = validationResult(req);
+            const errors = validationResult(data);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-            const newProduct = await this.productRepository.save(req.body);
-            return res.status(201).json(user);
+            const newProduct = await this.productRepository.save(data);
+            return {
+                status: 201,
+                data: newProduct
+            }
         } catch (error) {
             const errorObj = JSON.parse(error.message);
-            res.status(errorObj.status).json({ message: errorObj.message });
+            return {
+                status: errorObj.status,
+                message: errorObj.message
+            }
         }
     }
 
