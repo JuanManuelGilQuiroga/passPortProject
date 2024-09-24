@@ -17,7 +17,7 @@ module.exports = class UserValidator {
 
     validateUserLogin = () => {
         return [
-            body('nick').notEmpty().isString().withMessage('Envia el NickName'),
+            body('email').notEmpty().isEmail().withMessage('Envia un email válido'),
             body('password').notEmpty().isString().withMessage('Envia la contraseña'),
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {
@@ -27,4 +27,6 @@ module.exports = class UserValidator {
             })
         ];
     };
+    
+    
 }

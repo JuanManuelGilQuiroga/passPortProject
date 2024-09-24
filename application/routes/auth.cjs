@@ -26,6 +26,8 @@ const userController = new UserController()
 
 router.post('/user', userValidator.validateUserData(), (req, res) => userController.crearUsuario(req, res));
 
+router.post("/loguser", userValidator.validateUserLogin(), (req, res) => userController.logUsuario(req, res));
+
 router.get('/logout', (req, res) => {
     req.logout((err) => {
         if (err) {

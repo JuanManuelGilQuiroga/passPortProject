@@ -41,13 +41,18 @@ const insertUser = async (arg) => {
 const findOneUserByNameEmailOrOauthId = async (arg) => {
     let res = await user.findOne({
         $or: [
-            { oAuthId: arg.oAuthId },
-            { nick: arg.nick },
-            { email: arg.email }
+            { email: arg.email },
+            { nick: arg.nick }
         ]
     });
-    return res
+    return res; // Esto devuelve null si no encuentra nada
 }
+
+const findOneUserByEmail = async (email) => {
+    return await user.findOne({ email }); // Aquí buscamos directamente por email
+}
+
+
 
 const findOneUserByNameAndPassword = async (arg) => {
     let res = await user.findOne({
@@ -66,5 +71,6 @@ module.exports = {
     user,
     insertUser,
     findOneUserByNameEmailOrOauthId,
+    findOneUserByEmail,
     findOneUserByNameAndPassword
 };

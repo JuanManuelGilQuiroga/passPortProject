@@ -1,13 +1,50 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Login.css';
 
-export function LogIn(){
+export function LogIn() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate(); // Inicializar el hook useNavigate
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrorMessage(''); // Reiniciar mensaje de error
+
+        try {
+            const response = await fetch('http://localhost:3000/auth/loguser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setErrorMessage(errorData.message); // Mostrar el error
+                return;
+            }
+
+            const data = await response.json();
+            console.log(data.message); // Maneja la respuesta
+
+            // Redirigir al usuario a la página de perfil
+            navigate('/profile');
+        } catch (error) {
+            setErrorMessage('Error al iniciar sesión. Intenta de nuevo.');
+        }
+    };
+
     return (
         <main>
             <div className="form">
-              <p>
-                Bienvenido pa,<span>Logeate para continuar</span>
-              </p>
-              <button className="oauthButton google" onClick={() => window.open("http://localhost:3000/auth/google", "_self")}>
+                <p>
+                    Bienvenido pa,<span>Logeate para continuar</span>
+                </p>
+
+                <button className="oauthButton google" onClick={() => window.open("http://localhost:3000/auth/google", "_self")}>
                 <svg className="icon" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -41,34 +78,41 @@ export function LogIn(){
               </svg>
                 Continúa con Discord
               </button>
-              <div className="separator">
-                <div />
-                <span>O</span>
-                <div />
-              </div>
-              <input type="email" placeholder="Email" name="email" />
-              <input type="password" placeholder="Contraseña" name="password" />
-              <button className="oauthButton">
-                Continúa
-                <svg
-                  className="icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m6 17 5-5-5-5" />
-                  <path d="m13 17 5-5-5-5" />
-                </svg>
-              </button>
-              <span>No tienes cuenta?, <a href="/register">Registrate</a></span>
-          </div>
-        </main>
-    )
-}
 
+                <div className="separator">
+                    <div />
+                    <span>O</span>
+                    <div />
+                </div>
+
+                <form onSubmit={handleSubmit} className='form'>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Contraseña"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <button className="oauthButton" type='submit'>
+                        Continúa
+                        <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                            <path d="m6 17 5-5-5-5" />
+                            <path d="m13 17 5-5-5-5" />
+                        </svg>
+                    </button>
+                </form>
+                {errorMessage && <p className="error">{errorMessage}</p>}
+                <span>No tienes cuenta?, <a href="/register">Registrate</a></span>
+            </div>
+        </main>
+    );
+}

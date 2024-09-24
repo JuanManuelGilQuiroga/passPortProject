@@ -1,4 +1,4 @@
-const { insertUser, findOneUserByNameEmailOrOauthId, findOneUserByNameAndPassword } = require('../models/userModel.cjs')
+const { insertUser, findOneUserByNameEmailOrOauthId, findOneUserByEmail, findOneUserByNameAndPassword } = require('../models/userModel.cjs')
 
 module.exports = class UserRepository {
     async getOneUserByNameEmailOrOauthId(arg) {
@@ -9,6 +9,14 @@ module.exports = class UserRepository {
         }
     }
 
+    async getOneUserByNameEmail(email) {
+        try {
+            return await findOneUserByEmail(email);
+        } catch (error) {
+            throw new Error(JSON.stringify({ status: 400, message: 'Error al buscar el usuario.' }));
+        }
+    }    
+    
     async save(arg) {
         try {
             console.log("usuario guardado")
