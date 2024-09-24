@@ -43,21 +43,27 @@ const insertUser = async (arg) => {
 const findOneUserByNameEmailOrOauthId = async (arg) => {
     let res = await user.findOne({
         $or: [
-            { oAuthId: arg.oAuthId },
+            { email: arg.email },
+            { nick: arg.nick }
+        ]
+    });
+    return res; // Esto devuelve null si no encuentra nada
+}
+
+const findOneUserByEmail = async (email) => {
+    return await user.findOne({ email }); // Aquí buscamos directamente por email
+}
+
+
+
+const findOneUserByNameAndPassword = async (arg) => {
+    let res = await user.findOne({
+        $and: [
             { nick: arg.nick },
-            { email: arg.email }
+            { password: arg.password }
         ]
     });
     return res
-}
-
-const crearUsuario = async (req, res) => {
-    const userExists = await findOneUserByNameEmailOrOauthId(req.body);
-    if (userExists) {
-        return res.status(200).json({ message: 'El usuario ya está registrado' });
-    }
-    const newUser = await insertUser(req.body);
-    return res.status(201).json({ message: 'Usuario registrado' });
 }
 
 
@@ -67,5 +73,8 @@ module.exports = {
     FacebookUser,
     DiscordUser,
     user,
-    crearUsuario
+    insertUser,
+    findOneUserByNameEmailOrOauthId,
+    findOneUserByEmail,
+    findOneUserByNameAndPassword
 };
