@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import './Login.css';
 import {LogIn} from './components/logIn';
-import { Profile } from './components/profile';
+import { Profile, productsLoader, productsAction } from './components/profile';
 import { Register, registerAction } from './components/register';
 
 const routes = createBrowserRouter([
@@ -22,6 +22,8 @@ const routes = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile/>,
+    loader: productsLoader,
+    action: productsAction
   }
 
 ])

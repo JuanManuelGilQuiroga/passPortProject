@@ -3,6 +3,7 @@ const ProductValidator = require('../validators/productValidator.cjs');
 const ProductController = require('../controllers/productController.cjs');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
+const path = require('path');
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.get('/login', (req, res) => {
 const productValidator = new ProductValidator();
 const productController = new ProductController();
 
-router.post('/product', fileUpload({
+/*router.post('/product', fileUpload({
   limits: { fileSize: 50 * 1024 *1024 }
 }), express.json(), async(req, res)=>{
   let file = req.files.product_image;
@@ -42,7 +43,9 @@ router.post('/product', fileUpload({
     }); 
     let prove = await productController.crearProducto(data)
     console.log(prove)
-});
+});*/
+
+router.post('/product', productValidator.validateProductData(), productController.crearProducto);
 router.get('/products', productValidator.validateProductEmpty(), productController.listarProductos);
 
 

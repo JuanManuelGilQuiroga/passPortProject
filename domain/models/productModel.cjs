@@ -15,7 +15,7 @@ const insertProduct = async (arg) => {
 }
 
 const findAllProducts = async () => {
-    let res = await user.find({}).toArray();
+    let res = await products.find();
     return res
 }
 

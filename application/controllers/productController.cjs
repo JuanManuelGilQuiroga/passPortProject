@@ -2,35 +2,34 @@ const {validationResult} = require('express-validator');
 const ProductRepository = require('../../domain/repositories/productRepository.cjs');
 
 module.exports = class ProductController {
-    constructor(){
-        this.productRepository = new ProductRepository();
-    }
 
-    async crearProducto (data) {
+    async crearProducto (req, res) {
         try {
-            const errors = validationResult(data);
+            const errors = validationResult(req.body);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-            const newProduct = await this.productRepository.save(data);
-            return {
+            let productRepository = new ProductRepository()
+            const newProduct = await productRepository.save(req.body);
+            res.status(201).json({
                 status: 201,
                 data: newProduct
-            }
+            }) 
+            console.log(newProduct)
         } catch (error) {
             const errorObj = JSON.parse(error.message);
-            return {
-                status: errorObj.status,
-                message: errorObj.message
-            }
+            res.status(errorObj.status).json(errorObj)
         }
     }
 
     async listarProductos (req,res) {
         try {
-            const product = await this.productRepository.getAllProducts();
+            let productRepository = new ProductRepository()
+            const product = await productRepository.getAllProducts();
+            console.log(product)
             return res.status(201).json({ data: product });
         } catch (error) {
             const errorObj = JSON.parse(error.message);
-            res.status(errorObj.status).json({ message: errorObj.message });
+            console.log(errorObj)
+            res.status(errorObj.status).json(errorObj);
         }
     }
 }

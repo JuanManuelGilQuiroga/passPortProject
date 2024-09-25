@@ -11,6 +11,7 @@ module.exports = class ProductRepository {
 
     async getAllProducts(){
         try {
+            console.log(await findAllProducts())
             return await findAllProducts();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Productos no encontrados.'}));
